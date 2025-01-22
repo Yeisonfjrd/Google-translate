@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap'
 import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from '../constants'
-import { SectionType, type FromLanguage, type Language } from '../types.d'
+import { SectionType, FromLanguage, Language } from '../types.d'
 
 type Props =
   | { type: SectionType.From, value: FromLanguage, onChange: (language: FromLanguage) => void, className?: string }
@@ -8,7 +8,13 @@ type Props =
 
 export const LanguageSelector = ({ onChange, type, value, className }: Props) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange(event.target.value as Language)
+    const selectedValue = event.target.value;
+    
+    if (type === SectionType.From) {
+      onChange(selectedValue as FromLanguage);
+    } else {
+      onChange(selectedValue as Language);
+    }
   }
 
   return (
@@ -16,7 +22,7 @@ export const LanguageSelector = ({ onChange, type, value, className }: Props) =>
       aria-label='Selecciona el idioma'
       onChange={handleChange}
       value={value}
-      className={className}
+      className={`${className} language-selector`}
     >
       {type === SectionType.From && <option value={AUTO_LANGUAGE}>Detectar idioma</option>}
 

@@ -61,8 +61,8 @@ function App() {
     <Container fluid className="app-container">
       <h2 className="app-header">Google Translate</h2>
 
-      <Row className="main-row">
-        <Col className="col-1">
+      <Row>
+        <Col>
           <Stack gap={2} className="language-selector-stack">
             <LanguageSelector
               type={SectionType.From}
@@ -85,13 +85,13 @@ function App() {
             variant="link"
             disabled={fromLanguage === AUTO_LANGUAGE}
             onClick={interchangeLanguages}
-            className="swap-button animated-button"
+            className="swap-button"
           >
             <ArrowsIcon />
           </Button>
         </Col>
 
-        <Col className="col-2">
+        <Col>
           <Stack gap={2} className="language-selector-stack">
             <LanguageSelector
               type={SectionType.To}
