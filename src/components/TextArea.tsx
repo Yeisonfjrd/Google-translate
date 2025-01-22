@@ -1,4 +1,3 @@
-import React from 'react'
 import { Form } from 'react-bootstrap'
 import { SectionType } from '../types.d'
 
@@ -7,6 +6,7 @@ interface Props {
   loading?: boolean
   onChange: (value: string) => void
   value: string
+  className?: string
 }
 
 const commonStyles = { border: 0, height: '200px' }
@@ -17,7 +17,7 @@ const getPlaceholder = ({ type, loading }: { type: SectionType, loading?: boolea
   return 'Traducción'
 }
 
-export const TextArea = ({ type, loading, value, onChange }: Props) => {
+export const TextArea = ({ type, loading, value, onChange, className }: Props) => {
   const styles = type === SectionType.From
     ? commonStyles
     : { ...commonStyles, backgroundColor: '#f5f5f5' }
@@ -35,6 +35,7 @@ export const TextArea = ({ type, loading, value, onChange }: Props) => {
       style={styles}
       value={value}
       onChange={handleChange}
+      className={className}
     />
   )
 }
