@@ -6,10 +6,10 @@ import { Container, Row, Col, Button, Stack } from 'react-bootstrap';
 import { ArrowsIcon, ClipboardIcon, SpeakerIcon } from './components/icons';
 import { LanguageSelector } from './components/LanguageSelector';
 import { TextArea } from './components/TextArea';
-import { AUTO_LANGUAGE, VOICE_FOR_LANGUAGE } from './constants';
+import { VOICE_FOR_LANGUAGE } from './constants';
 import { translate } from './services/translate';
 import { useStore } from './hooks/useStore';
-import { SectionType, FromLanguage, Language } from './types.d';
+import { SectionType } from './types.d';
 
 function App() {
   const {
@@ -28,21 +28,23 @@ function App() {
   const debouncedFromText = useDebounce(fromText, 300);
 
   useEffect(() => {
-    if (debouncedFromText === '') return;
-
-    interface TranslateParams {
-      fromLanguage: FromLanguage;
-      toLanguage: Language;
-      text: string;
+    if (debouncedFromText === '') {
+      setResult('');
+      return;
     }
 
-    translate({ fromLanguage, toLanguage, text: debouncedFromText } as TranslateParams)
-      .then((result: string | null) => {
-        if (result == null) return;
-        setResult(result);
+    translate({ 
+      fromLanguage, 
+      toLanguage, 
+      text: debouncedFromText 
+    })
+      .then((translatedText: string) => {
+        if (translatedText) {
+          setResult(translatedText);
+        }
       })
       .catch(() => {
-        setResult('Error');
+        setResult('Error en la traducción');
       });
   }, [debouncedFromText, fromLanguage, toLanguage]);
 
@@ -58,69 +60,72 @@ function App() {
   };
 
   return (
-    <Container fluid className="app-container">
-      <h2 className="app-header">Google Translate</h2>
-
-      <Row>
-        <Col>
-          <Stack gap={2} className="language-selector-stack">
-            <LanguageSelector
-              type={SectionType.From}
-              value={fromLanguage}
-              onChange={setFromLanguages}
-              className="animated-selector"
-            />
-
-            <TextArea
-              type={SectionType.From}
-              value={fromText}
-              onChange={setFromText}
-              className="text-area animated-text-area"
-            />
-          </Stack>
-        </Col>
-
-        <Col xs="auto" className="swap-button-column">
-          <Button
-            variant="link"
-            disabled={fromLanguage === AUTO_LANGUAGE}
-            onClick={interchangeLanguages}
-            className="swap-button"
-          >
-            <ArrowsIcon />
-          </Button>
-        </Col>
-
-        <Col>
-          <Stack gap={2} className="language-selector-stack">
-            <LanguageSelector
-              type={SectionType.To}
-              value={toLanguage}
-              onChange={setToLanguage}
-              className="animated-selector"
-            />
-
-            <div className="relative-position">
-              <TextArea
-                loading={loading}
-                type={SectionType.To}
-                value={result}
-                onChange={setResult}
-                className="text-area animated-text-area"
-              />
-              <div className="action-buttons">
-                <Button variant="link" onClick={handleClipboard} className="action-button">
-                  <ClipboardIcon />
-                </Button>
-                <Button variant="link" onClick={handleSpeak} className="action-button">
-                  <SpeakerIcon />
-                </Button>
-              </div>
-            </div>
-          </Stack>
-        </Col>
-      </Row>
-    </Container>
+<Container fluid className="app-container">
+  <h2 className="app-header">AI Translator</h2>
+  <Row className="justify-content-center">
+    <Col xs={12} md={5}>
+      <Stack gap={3}>
+        <LanguageSelector
+          type={SectionType.From}
+          value={fromLanguage}
+          onChange={setFromLanguages}
+          className="language-selector"
+        />
+        <TextArea
+          type={SectionType.From}
+          value={fromText}
+          onChange={setFromText}
+          className="text-area"
+        />
+      </Stack>
+    </Col>
+    <Col xs="auto" className="d-flex align-items-center">
+      <Button
+        variant="link"
+        onClick={interchangeLanguages}
+        className="swap-button"
+      >
+        <ArrowsIcon />
+      </Button>
+    </Col>
+    <Col xs={12} md={5}>
+      <Stack gap={3}>
+        <LanguageSelector
+          type={SectionType.To}
+          value={toLanguage}
+          onChange={setToLanguage}
+          className="language-selector"
+        />
+        <div className="relative-position">
+          <TextArea
+            loading={loading}
+            type={SectionType.To}
+            value={result}
+            onChange={setResult}
+            readOnly
+            className="text-area"
+          />
+          <div className="action-buttons">
+            <Button 
+              variant="link" 
+              onClick={handleClipboard}
+              className="action-button"
+            >
+              <ClipboardIcon />
+            </Button>
+            <Button 
+              variant="link" 
+              onClick={handleSpeak}
+              className="action-button"
+            >
+              <SpeakerIcon />
+            </Button>
+          </div>
+        </div>
+      </Stack>
+    </Col>
+  </Row>
+</Container>
   );
 }
 

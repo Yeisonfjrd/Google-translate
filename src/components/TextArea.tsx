@@ -7,6 +7,7 @@ interface Props {
   onChange: (value: string) => void
   value: string
   className?: string
+  readOnly?: boolean
 }
 
 const commonStyles = { 
@@ -15,7 +16,7 @@ const commonStyles = {
   borderRadius: '8px',
   padding: '1rem',
   backgroundColor: '#2b2b2b',
-  color: '#f4a261', /* Mostaza para el texto */
+  color: '#f4a261',
   fontSize: '1rem',
   lineHeight: '1.5',
   resize: 'none' as const,
@@ -28,7 +29,7 @@ const getPlaceholder = ({ type, loading }: { type: SectionType, loading?: boolea
   return 'Traducción'
 }
 
-export const TextArea = ({ type, loading, value, onChange, className }: Props) => {
+export const TextArea = ({ type, loading, value, onChange, className, readOnly = false }: Props) => {
   const styles = type === SectionType.From
     ? { ...commonStyles }
     : { ...commonStyles, backgroundColor: '#333333' }
@@ -41,12 +42,13 @@ export const TextArea = ({ type, loading, value, onChange, className }: Props) =
     <Form.Control
       autoFocus={type === SectionType.From}
       as='textarea'
-      disabled={type === SectionType.To}
+      disabled={type === SectionType.To || loading}
       placeholder={getPlaceholder({ type, loading })}
       style={styles}
       value={value}
       onChange={handleChange}
       className={`${className} custom-textarea`}
+      readOnly={readOnly}
     />
   )
 }

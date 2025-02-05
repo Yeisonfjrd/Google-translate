@@ -1,14 +1,7 @@
-#root {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #1e1e1e; /* Fondo oscuro para el contenedor principal */
-}
-/* Fondo oscuro global */
 body {
-  background-color: #1e1e1e; /* Fondo gris oscuro */
-  color: #f4a261; /* Color mostaza para el texto en toda la página */
-  font-family: 'Arial', sans-serif; /* Fuente para darle más elegancia */
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -17,150 +10,111 @@ body {
   align-items: center;
 }
 
-/* Fondo de la aplicación con un toque mostaza suave */
-.app-container {
-  background: #3b3b3b; /* Gris oscuro con un toque de mostaza */
-  min-height: 100vh;
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Encabezado elegante */
 .app-header {
+  font-size: 2.5rem;
+  font-weight: bold;
   text-align: center;
-  font-size: 3rem;
-  color: #f4a261; /* Mostaza sutil */
   margin-bottom: 2rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  color: #f4a261;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* Área de texto con bordes suaves y un toque de sombra */
-.text-area {
-  background-color: #2b2b2b;  /* Fondo gris oscuro para el área de texto */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.language-column {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.language-column:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.language-selector {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #2b2b2b;
+  border: 1px solid #444;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  padding: 1.2rem;
-  color: #f4a261; /* Texto en mostaza para el área de texto */
-  border: 1px solid #444444; /* Borde sutil */
-  font-size: 1.1rem;
+  color: #e0e0e0;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.language-selector:focus {
+  background-color: #333;
+  border-color: #f4a261;
+  outline: none;
+}
+
+.text-area {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  background-color: #2b2b2b;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
   line-height: 1.5;
   resize: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
-/* Cambio de fondo al hacer foco */
 .text-area:focus {
+  background-color: #333;
   border-color: #f4a261;
-  background-color: #333333;
-  box-shadow: 0 0 8px rgba(244, 166, 97, 0.6);
-  transform: scale(1.02);
+  outline: none;
 }
 
-/* Botón de intercambio con color mostaza suave */
 .swap-button {
+  background: none;
+  border: none;
+  color: #f4a261;
   font-size: 2rem;
-  color: #f4a261;
-  transition: color 0.3s ease;
-}
-
-.swap-button:hover {
-  color: #e0762e; /* Mostaza más oscuro */
-}
-
-/* Botones de acción (copiar y hablar) */
-.action-button {
-  color: #f4a261;
+  cursor: pointer;
   transition: transform 0.3s ease, color 0.3s ease;
 }
-
-.action-button:hover {
-  transform: scale(1.1);
-  color: #e0762e;  /* Color mostaza más oscuro al pasar el mouse */
+.swap-button:hover {
+  color: #ffcb77;
+  transform: rotate(180deg);
 }
 
-/* Fondo de la parte inferior con sombras sutiles */
-.language-selector-stack {
-  background: #2b2b2b; /* Fondo gris oscuro */
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  padding: 2rem;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.language-selector-stack:hover {
-  transform: scale(1.05);
-  opacity: 0.95;
-}
-
-/* Animación para la entrada de los selectores */
-.animated-selector {
-  animation: fadeIn 0.5s ease;
-}
-
-/* Animación para la entrada del área de texto */
-.animated-text-area {
-  animation: fadeIn 0.5s ease;
-}
-
-/* Columna para el botón de intercambio */
-.swap-button-column {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Posicionamiento relativo para el área de texto */
-.relative-position {
-  position: relative;
-}
-
-/* Estilos de los botones de acción (copiar y hablar) */
 .action-buttons {
-  position: absolute;
-  left: 0;
-  bottom: 0;
   display: flex;
-  gap: 10px;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
 }
-.language-selector {
-  background-color: #2d2d2d; /* Fondo oscuro */
-  color: #d0a500; /* Color mostaza sutil */
-  border: 1px solid #444; /* Borde gris oscuro */
-  border-radius: 5px; /* Bordes redondeados */
-  font-size: 1rem; /* Tamaño de fuente */
-  padding: 0.5rem 1rem; /* Espaciado interno */
-  transition: all 0.3s ease; /* Transición suave */
+.action-button {
+  background: none;
+  border: none;
+  color: #f4a261;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
-
-/* Estado de foco */
-.language-selector:focus {
-  outline: none; /* Quitamos el borde de foco predeterminado */
-  border-color: #d0a500; /* Borde mostaza al hacer foco */
-  box-shadow: 0 0 5px rgba(208, 165, 0, 0.5); /* Sombra sutil en mostaza */
+.action-button:hover {
+  color: #ffcb77;
+  transform: scale(1.2);
 }
 
-/* Estilo de las opciones */
-.language-selector option {
-  background-color: #2d2d2d; /* Fondo oscuro de las opciones */
-  color: #d0a500; /* Texto mostaza en las opciones */
-}
-
-.language-selector option:hover {
-  background-color: #444; /* Fondo más claro cuando se pasa el cursor */
-}
-/* Estilo para los placeholders */
-.custom-textarea::placeholder {
-  color: #bbb; /* Gris claro para los placeholders */
-}
-
-/* También puedes hacer que el foco sea más evidente con bordes */
-.custom-textarea:focus {
-  border-color: #f4a261; /* Mostaza para cuando el campo tiene foco */
-  box-shadow: 0 0 5px rgba(244, 166, 97, 0.5); /* Sombra sutil mostaza */
-}
-
-/* Animación de entrada de los elementos */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -171,16 +125,6 @@ body {
     transform: translateY(0);
   }
 }
-
-/* Animación del botón de pulsación */
-@keyframes buttonPulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
+.animated-element {
+  animation: fadeIn 0.8s ease-in-out;
 }
